@@ -5,10 +5,11 @@ Take as input a file with one word (a noun) per line
 """
 
 import argparse
-import json
 import re
 import sys
 from collections import defaultdict
+
+from charsplit.data_io import export_ngrams_probs
 
 
 def parse_args():
@@ -71,12 +72,11 @@ def main(input_file, output_file):
     in_ngrams = {k: v / all_ngrams[k] for k, v in in_ngrams.items() if v > 1}
 
     # Write dicts to file
-    with open(output_file, "w") as f:
-        json.dump({
-            "prefix": start_ngrams,
-            "infix": in_ngrams,
-            "suffix": end_ngrams
-        }, f)
+    export_ngrams_probs(output_file, {
+        "prefix": start_ngrams,
+        "infix": in_ngrams,
+        "suffix": end_ngrams
+    })
 
 
 if __name__ == "__main__":

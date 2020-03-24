@@ -1,1 +1,1 @@
-include charsplit/ngram_probs.json
+include charsplit/ngram_probs.npz

@@ -18,7 +18,7 @@ A model is provided, trained on 1 Mio. German nouns from Wikipedia.
 ```bash
 training.py --input_file --output_file
 ```
-from command line, where `input_file` contains one word (noun) per line and `output_file` is a json file with computed n-gram probabilities. 
+from command line, where `input_file` contains one word (noun) per line and `output_file` is a npz file with computed n-gram probabilities. 
 
 **Compound splitting**
 
@@ -37,8 +37,8 @@ returns a list of all possible splits, ranked by their score, e.g.
  ...
 ]
 ```
-By default, `Splitter` uses the data from the file `charsplit/ngram_probs.json`. If you retrained the model, you may specify a custom file with
+By default, `Splitter` uses the data from the file `charsplit/ngram_probs.npz`. If you retrained the model, you may specify a custom file with
 ```python
-splitter = Splitter(ngram_path=<json_data_file_with_ngram_probs>)
+splitter = Splitter(ngram_path=<numpy_data_file_with_ngram_probs>)
 ```
 

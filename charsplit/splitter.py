@@ -2,15 +2,14 @@
 Split German compound words
 """
 
-import json
 import re
 import sys
 from pathlib import Path
 
-NGRAM_PATH = Path(__file__).parent / "ngram_probs.json"
+from charsplit.data_io import load_ngrams_probs
 
-with open(NGRAM_PATH) as f:
-    ngram_probs = json.load(f)
+NGRAM_PATH = Path(__file__).parent / "ngram_probs.npz"
+NGRAM_PROBS = load_ngrams_probs(NGRAM_PATH, filter_nan=False)
 
 
 class Splitter:
@@ -52,11 +51,11 @@ class Splitter:
                 if pre_slice_prob == [] and k <= len(pre_slice):
                     end_ngram = pre_slice[-k:]  # Look backwards
                     pre_slice_prob.append(
-                        ngram_probs["suffix"].get(end_ngram, -1))  # Punish unlikely pre_slice end_ngram
+                        NGRAM_PROBS["suffix"].get(end_ngram, -1))  # Punish unlikely pre_slice end_ngram
 
                 # Probability of ngram in word, if high, split unlikely
                 in_ngram = word[n:n + k]
-                in_slice_prob.append(ngram_probs["infix"].get(in_ngram, 1))  # Favor ngrams not occurring within words
+                in_slice_prob.append(NGRAM_PROBS["infix"].get(in_ngram, 1))  # Favor ngrams not occurring within words
 
                 # Probability of word starting
                 if start_slice_prob == []:
@@ -66,7 +65,7 @@ class Splitter:
                             or ngram.endswith('hls') or ngram.endswith('ns'):
                         if len(ngram[:-1]) > 2:
                             ngram = ngram[:-1]
-                    start_slice_prob.append(ngram_probs["prefix"].get(ngram, -1))
+                    start_slice_prob.append(NGRAM_PROBS["prefix"].get(ngram, -1))
 
             if pre_slice_prob == [] or start_slice_prob == []: continue
 
