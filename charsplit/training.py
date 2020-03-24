@@ -13,8 +13,8 @@ import json
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Computes ngram probabilities')
-    parser.add_argument('input_file', help='filename, one word per line')
-    parser.add_argument('output_file', help='output file with probabilities')
+    parser.add_argument('--input_file', help='filename, one word per line')
+    parser.add_argument('--output_file', help='output file with probabilities')
     return parser.parse_args()
 
 

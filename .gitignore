@@ -1,2 +1,18 @@
-.idea
-__pycache__
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+.idea/
+
+# Distribution / packaging
+.Python
+build/
+dist/
+eggs/
+.eggs/
+sdist/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
