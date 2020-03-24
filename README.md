@@ -25,18 +25,20 @@ from command line, where `input_file` contains one word (noun) per line and `out
 In python
 
 ```python
->> from charsplit import Splitter
->> splitter = Splitter()
->> splitter.split_compound("Autobahnraststätte")
+from charsplit import Splitter
+splitter = Splitter()
+splitter.split_compound("Autobahnraststätte")
 ```
 returns a list of all possible splits, ranked by their score, e.g.
 ```python
 [[0.7945872450631273, 'Autobahn', 'Raststätte'], 
-[-0.7143290887876655, 'Auto', 'Bahnraststätte'], 
-[-1.1132332878581173, 'Autobahnrast', 'Stätte'], ...]
+ [-0.7143290887876655, 'Auto', 'Bahnraststätte'], 
+ [-1.1132332878581173, 'Autobahnrast', 'Stätte'],
+ ...
+]
 ```
 By default, `Splitter` uses the data from the file `charsplit/ngram_probs.json`. If you retrained the model, you may specify a custom file with
 ```python
->> splitter = Splitter(ngram_path=<json_data_file_with_ngram_probs>)
+splitter = Splitter(ngram_path=<json_data_file_with_ngram_probs>)
 ```
 
